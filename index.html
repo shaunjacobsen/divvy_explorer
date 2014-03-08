@@ -29,6 +29,14 @@
     </div>
 
     <div class="row">
+
+        <div class="col-lg-12">
+            <div id="chart-bar-trips"></div>
+        </div>
+
+    </div>
+
+    <div class="row">
         
         <div class="col-xs-4 col-centered">
             <div id="chart-pie-gender"></div>
@@ -244,6 +252,7 @@ var ageGroup = ageDim.group();
 
 // var chicagoChart = dc.bubbleOverlay("#chicago"); // overlay of the city
 var tripsChart = dc.lineChart("#chart-line-tripsperday"); // trips line chart
+var tripsSumChart = dc.barChart("#chart-bar-trips"); // trips bar chart
 // var kmChart = dc.barChart("#chart-line-km"); // kilometres ridden line chart
 var genderChart = dc.pieChart("#chart-pie-gender"); // gender pie chart
 var userChart = dc.pieChart("#chart-pie-user"); // user type pie chart
@@ -291,25 +300,49 @@ d3.json("neighborhoods.json", function(error, chicago) {
 
 -------- */
 
+var isElasticOn = false;
+
 tripsChart
+    .renderArea(true)
     .width(970).height(300)
+    .transitionDuration(1000)
+    .margins({top: 30, right: 50, bottom: 25, left: 40})
+    .dimension(dateDim)
+    .mouseZoomable(true)
+    .rangeChart(tripsSumChart)
+    .x(d3.time.scale().domain([minDate,maxDate]))
+    .round(d3.time.month.round)
+    .xUnits(d3.time.months)
+    .elasticY(true)
+    .renderHorizontalGridLines(true)
+    .brushOn(false)
+    .group(trips)
+    .valueAccessor(function(d) {
+            return d.value;
+        })
+    .stack(kmGroup, "km", function(d) {
+        return d.value;
+    })
+    .yAxisLabel("Trips per day");
+
+tripsSumChart
+    .width(970).height(50)
+    .margins({top: 0, right: 50, bottom: 20, left: 52})
     .dimension(dateDim)
     .group(trips)
-    .title(function(d) {
-        var value = d.total;
-        return parseDate(d.start_date) + "\n" + value;
-    })
+    .centerBar(true)
+    .gap(1)
+    .centerBar(true)
     .x(d3.time.scale().domain([minDate,maxDate]))
-    .renderArea(true)
-    .renderHorizontalGridLines(true)
-    .yAxisLabel("Trips per day");
+    .round(d3.time.month.round)
+    .yAxis().ticks(0);
 
 genderChart
     .width(150).height(150)
     .dimension(genderDim)
     .group(gender_total)
     .colors(['#F38630', '#69D2E7', '#E0E4CC'])
-    .innerRadius(20); 
+    .innerRadius(20);
 
 userChart
     .width(150).height(150)
@@ -329,7 +362,7 @@ dayOfWeekChart
     .title(function (d) {
         return d.value;
     })
-    .elasticX(false)
+    .elasticX(isElasticOn)
     .xAxis().ticks(4);
 
 monthChart
@@ -340,7 +373,7 @@ monthChart
     .label(function (d) {
         return d.key.split(".")[1];
     })
-    .elasticX(false)
+    .elasticX(isElasticOn)
     .xAxis().ticks(4);
 
 timeChart
@@ -351,7 +384,7 @@ timeChart
     .group(startTimeGroup)
     .round(dc.round.floor)
     .renderHorizontalGridLines(true)
-    .elasticY(false)
+    .elasticY(isElasticOn)
     .x(d3.scale.linear().domain([0, 23]))
 
     timeChart.xAxis().tickFormat(
@@ -366,7 +399,7 @@ durationChart
     .group(durationGroup)
     .round(dc.round.floor)
     .renderHorizontalGridLines(true)
-    .elasticY(false)
+    .elasticY(isElasticOn)
     .x(d3.scale.linear().domain([0, 60]))
 
     durationChart.xAxis().tickFormat(
