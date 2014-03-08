@@ -1,0 +1,489 @@
+{
+  "meta" : {
+    "view" : {
+      "id" : "y6yq-dbs2",
+      "name" : "Neighborhoods_2012b",
+      "averageRating" : 0,
+      "createdAt" : 1355873466,
+      "displayType" : "geoRows",
+      "downloadCount" : 132,
+      "indexUpdatedAt" : 1355921301,
+      "newBackend" : false,
+      "numberOfComments" : 0,
+      "oid" : 2062385,
+      "publicationAppendEnabled" : false,
+      "publicationGroup" : 564664,
+      "publicationStage" : "published",
+      "tableId" : 564664,
+      "totalTimesRated" : 0,
+      "viewCount" : 15,
+      "viewLastModified" : 1355873466,
+      "viewType" : "tabular",
+      "columns" : [ {
+        "id" : -1,
+        "name" : "sid",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":sid",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "id",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":id",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "position",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":position",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "created_at",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":created_at",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "created_meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":created_meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "updated_at",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":updated_at",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "updated_meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":updated_meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : -1,
+        "name" : "meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : {
+        }
+      }, {
+        "id" : 35666074,
+        "name" : "SEC_NEIGH",
+        "dataTypeName" : "text",
+        "fieldName" : "sec_neigh",
+        "position" : 1,
+        "renderTypeName" : "text",
+        "tableColumnId" : 6193112,
+        "cachedContents" : {
+          "non_null" : 98,
+          "smallest" : "ANDERSONVILLE",
+          "null" : 0,
+          "largest" : "WRIGLEYVILLE",
+          "top" : [ {
+            "count" : 20,
+            "item" : "NORTH PARK,ALBANY PARK"
+          }, {
+            "count" : 19,
+            "item" : "WASHINGTON HEIGHTS,ROSELAND"
+          }, {
+            "count" : 18,
+            "item" : "SOUTHEAST SIDE"
+          }, {
+            "count" : 17,
+            "item" : "MIDWAY AIRPORT"
+          }, {
+            "count" : 16,
+            "item" : "MARQUETTE PARK,GAGE PARK"
+          }, {
+            "count" : 15,
+            "item" : "ARCHER HEIGHTS,WEST ELSDON"
+          }, {
+            "count" : 14,
+            "item" : "BRIGHTON PARK,MCKINLEY PARK"
+          }, {
+            "count" : 13,
+            "item" : "UKRAINIAN VILLAGE AND EAST VILLAGE"
+          }, {
+            "count" : 12,
+            "item" : "WICKER PARK,WEST TOWN"
+          }, {
+            "count" : 11,
+            "item" : "MONTCLARE, GALEWOOD"
+          }, {
+            "count" : 10,
+            "item" : "OLD TOWN"
+          }, {
+            "count" : 9,
+            "item" : "BELMONT CRAGIN,HERMOSA"
+          }, {
+            "count" : 8,
+            "item" : "AUSTIN"
+          }, {
+            "count" : 7,
+            "item" : "GOLD COAST"
+          }, {
+            "count" : 6,
+            "item" : "BOYSTOWN"
+          }, {
+            "count" : 5,
+            "item" : "RIVER NORTH"
+          } ]
+        },
+        "format" : {
+        }
+      }, {
+        "id" : 35666073,
+        "name" : "PRI_NEIGH",
+        "dataTypeName" : "text",
+        "fieldName" : "pri_neigh",
+        "position" : 1,
+        "renderTypeName" : "text",
+        "tableColumnId" : 6193111,
+        "cachedContents" : {
+          "non_null" : 98,
+          "smallest" : "Albany Park",
+          "null" : 0,
+          "largest" : "Wrigleyville",
+          "top" : [ {
+            "count" : 20,
+            "item" : "West Town"
+          }, {
+            "count" : 19,
+            "item" : "Bridgeport"
+          }, {
+            "count" : 18,
+            "item" : "West Elsdon"
+          }, {
+            "count" : 17,
+            "item" : "Gage Park"
+          }, {
+            "count" : 16,
+            "item" : "Clearing"
+          }, {
+            "count" : 15,
+            "item" : "West Lawn"
+          }, {
+            "count" : 14,
+            "item" : "Wicker Park"
+          }, {
+            "count" : 13,
+            "item" : "Ukrainian Village"
+          }, {
+            "count" : 12,
+            "item" : "Galewood"
+          }, {
+            "count" : 11,
+            "item" : "Montclare"
+          }, {
+            "count" : 10,
+            "item" : "Old Town"
+          }, {
+            "count" : 9,
+            "item" : "Belmont Cragin"
+          }, {
+            "count" : 8,
+            "item" : "Austin"
+          }, {
+            "count" : 7,
+            "item" : "Gold Coast"
+          }, {
+            "count" : 6,
+            "item" : "Boystown"
+          }, {
+            "count" : 5,
+            "item" : "River North"
+          } ]
+        },
+        "format" : {
+        }
+      }, {
+        "id" : 35666075,
+        "name" : "SHAPE_AREA",
+        "dataTypeName" : "number",
+        "fieldName" : "shape_area",
+        "position" : 2,
+        "renderTypeName" : "number",
+        "tableColumnId" : 6193113,
+        "cachedContents" : {
+          "non_null" : 98,
+          "smallest" : "882405.0861599999479949474334716796875",
+          "sum" : "6438319037.33369999867863953113555908203125",
+          "null" : 0,
+          "average" : "65697133.03401735",
+          "largest" : "371835607.686999976634979248046875",
+          "top" : [ {
+            "count" : 20,
+            "item" : "58507728.421099998056888580322265625"
+          }, {
+            "count" : 19,
+            "item" : "58291519.276000000536441802978515625"
+          }, {
+            "count" : 18,
+            "item" : "32711091.4259000010788440704345703125"
+          }, {
+            "count" : 17,
+            "item" : "61284896.113200001418590545654296875"
+          }, {
+            "count" : 16,
+            "item" : "71145192.3826999962329864501953125"
+          }, {
+            "count" : 15,
+            "item" : "82315301.68310000002384185791015625"
+          }, {
+            "count" : 14,
+            "item" : "26853193.0925999991595745086669921875"
+          }, {
+            "count" : 13,
+            "item" : "10622385.57760000042617321014404296875"
+          }, {
+            "count" : 12,
+            "item" : "29257505.7199999988079071044921875"
+          }, {
+            "count" : 11,
+            "item" : "27535347.8586000017821788787841796875"
+          }, {
+            "count" : 10,
+            "item" : "19847998.9611000008881092071533203125"
+          }, {
+            "count" : 9,
+            "item" : "109099407.2109999954700469970703125"
+          }, {
+            "count" : 8,
+            "item" : "170037750.8260000050067901611328125"
+          }, {
+            "count" : 7,
+            "item" : "7165705.534669999964535236358642578125"
+          }, {
+            "count" : 6,
+            "item" : "3365778.9711500001139938831329345703125"
+          }, {
+            "count" : 5,
+            "item" : "38766442.51940000057220458984375"
+          } ]
+        },
+        "format" : {
+        }
+      }, {
+        "id" : 35666076,
+        "name" : "SHAPE_LEN",
+        "dataTypeName" : "number",
+        "fieldName" : "shape_len",
+        "position" : 3,
+        "renderTypeName" : "number",
+        "tableColumnId" : 6193114,
+        "cachedContents" : {
+          "non_null" : 98,
+          "smallest" : "6099.310645999999906052835285663604736328125",
+          "sum" : "3708697.4291249999705541995353996753692626953125",
+          "null" : 0,
+          "average" : "37843.85131760204",
+          "largest" : "173625.98465999998734332621097564697265625",
+          "top" : [ {
+            "count" : 20,
+            "item" : "46673.6205459999982849694788455963134765625"
+          }, {
+            "count" : 19,
+            "item" : "32732.71832699999868054874241352081298828125"
+          }, {
+            "count" : 18,
+            "item" : "26229.695600999999442137777805328369140625"
+          }, {
+            "count" : 17,
+            "item" : "32294.19591099999888683669269084930419921875"
+          }, {
+            "count" : 16,
+            "item" : "45363.286175000001094304025173187255859375"
+          }, {
+            "count" : 15,
+            "item" : "41934.4901309999986551702022552490234375"
+          }, {
+            "count" : 14,
+            "item" : "21992.66094599999996717087924480438232421875"
+          }, {
+            "count" : 13,
+            "item" : "13311.469795999999405466951429843902587890625"
+          }, {
+            "count" : 12,
+            "item" : "25124.77045500000167521648108959197998046875"
+          }, {
+            "count" : 11,
+            "item" : "22829.53362600000036763958632946014404296875"
+          }, {
+            "count" : 10,
+            "item" : "17905.72867599999881349503993988037109375"
+          }, {
+            "count" : 9,
+            "item" : "43311.706885999999940395355224609375"
+          }, {
+            "count" : 8,
+            "item" : "55473.345910999996704049408435821533203125"
+          }, {
+            "count" : 7,
+            "item" : "13685.47937699999965843744575977325439453125"
+          }, {
+            "count" : 6,
+            "item" : "9780.268985000000611762516200542449951171875"
+          }, {
+            "count" : 5,
+            "item" : "31506.0378100000016274861991405487060546875"
+          } ]
+        },
+        "format" : {
+        }
+      } ],
+      "grants" : [ {
+        "inherited" : false,
+        "type" : "viewer",
+        "flags" : [ "public" ]
+      } ],
+      "owner" : {
+        "id" : "3qqc-w7ag",
+        "displayName" : "Tom Schenk Jr",
+        "profileImageUrlLarge" : "/images/profile/6571/1447/city_of_chicago_seal_large.jpg",
+        "profileImageUrlMedium" : "/images/profile/6571/1447/city_of_chicago_seal_thumb.jpg",
+        "profileImageUrlSmall" : "/images/profile/6571/1447/city_of_chicago_seal_tiny.jpg",
+        "roleName" : "administrator",
+        "screenName" : "Tom Schenk Jr",
+        "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages", "view_goals", "view_dashboards", "edit_goals", "edit_dashboards", "create_dashboards" ]
+      },
+      "query" : {
+      },
+      "rights" : [ "read" ],
+      "tableAuthor" : {
+        "id" : "3qqc-w7ag",
+        "displayName" : "Tom Schenk Jr",
+        "profileImageUrlLarge" : "/images/profile/6571/1447/city_of_chicago_seal_large.jpg",
+        "profileImageUrlMedium" : "/images/profile/6571/1447/city_of_chicago_seal_thumb.jpg",
+        "profileImageUrlSmall" : "/images/profile/6571/1447/city_of_chicago_seal_tiny.jpg",
+        "roleName" : "administrator",
+        "screenName" : "Tom Schenk Jr",
+        "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages", "view_goals", "view_dashboards", "edit_goals", "edit_dashboards", "create_dashboards" ]
+      },
+      "flags" : [ "default" ]
+    }
+  },
+  "data" : [ [ 1, "geo_bbvz-uum9-1.1", null, null, null, null, null, null, "BRONZEVILLE", "Grand Boulevard", "48492503.155400000512599945068359375", "28196.83715700000175274908542633056640625" ]
+, [ 2, "geo_bbvz-uum9-1.2", null, null, null, null, null, null, "PRINTERS ROW", "Printers Row", "2162137.9713900000788271427154541015625", "6864.2471560000003591994754970073699951171875" ]
+, [ 3, "geo_bbvz-uum9-1.3", null, null, null, null, null, null, "UNITED CENTER", "United Center", "32520512.7052999995648860931396484375", "23101.36374499999874387867748737335205078125" ]
+, [ 4, "geo_bbvz-uum9-1.4", null, null, null, null, null, null, "SHEFFIELD & DEPAUL", "Sheffield & DePaul", "10482592.29869999922811985015869140625", "13227.04974500000025727786123752593994140625" ]
+, [ 5, "geo_bbvz-uum9-1.5", null, null, null, null, null, null, "HUMBOLDT PARK", "Humboldt Park", "125010425.592999994754791259765625", "46126.751350999998976476490497589111328125" ]
+, [ 6, "geo_bbvz-uum9-1.6", null, null, null, null, null, null, "GARFIELD PARK", "Garfield Park", "89976069.59469999372959136962890625", "44460.9192200000034063123166561126708984375" ]
+, [ 7, "geo_bbvz-uum9-1.7", null, null, null, null, null, null, "NORTH LAWNDALE", "North Lawndale", "89487422.0243999958038330078125", "44959.459663000001455657184123992919921875" ]
+, [ 8, "geo_bbvz-uum9-1.8", null, null, null, null, null, null, "LITTLE VILLAGE", "Little Village", "127998297.8190000057220458984375", "49904.0400299999964772723615169525146484375" ]
+, [ 9, "geo_bbvz-uum9-1.9", null, null, null, null, null, null, "ARMOUR SQUARE,CHINATOWN", "Armour Square", "17141468.6356000006198883056640625", "24359.189624999999068677425384521484375" ]
+, [ 10, "geo_bbvz-uum9-1.10", null, null, null, null, null, null, "AVALON PARK,CALUMET HEIGHTS", "Avalon Park", "34852737.73659999668598175048828125", "27630.8225339999989955686032772064208984375" ]
+, [ 11, "geo_bbvz-uum9-1.11", null, null, null, null, null, null, "CHATHAM,BURNSIDE", "Burnside", "16995983.2736999988555908203125", "18137.9442530000014812685549259185791015625" ]
+, [ 21, "geo_bbvz-uum9-1.21", null, null, null, null, null, null, "BELMONT CRAIGIN,HERMOSA", "Hermosa", "32602059.4054999984800815582275390625", "27179.01743799999894690699875354766845703125" ]
+, [ 22, "geo_bbvz-uum9-1.22", null, null, null, null, null, null, "IRVING PARK,AVONDALE", "Avondale", "55290595.482000000774860382080078125", "34261.9334040000030654482543468475341796875" ]
+, [ 12, "geo_bbvz-uum9-1.12", null, null, null, null, null, null, "AVALON PARK,CALUMET HEIGHTS", "Calumet Heights", "48826241.564300000667572021484375", "32925.365871000001789070665836334228515625" ]
+, [ 46, "geo_bbvz-uum9-1.46", null, null, null, null, null, null, "BACK OF THE YARDS", "New City", "134636963.254000008106231689453125", "48133.595960999999078921973705291748046875" ]
+, [ 47, "geo_bbvz-uum9-1.47", null, null, null, null, null, null, "ENGLEWOOD", "Englewood", "173600015.009000003337860107421875", "56144.0460479999965173192322254180908203125" ]
+, [ 48, "geo_bbvz-uum9-1.48", null, null, null, null, null, null, "SOUTH SHORE, GRAND CROSSING", "Grand Crossing", "98853167.70929999649524688720703125", "54645.33030000000144354999065399169921875" ]
+, [ 49, "geo_bbvz-uum9-1.49", null, null, null, null, null, null, "ASHBURN", "Ashburn", "135460337.208000004291534423828125", "54818.1546319999979459680616855621337890625" ]
+, [ 50, "geo_bbvz-uum9-1.50", null, null, null, null, null, null, "MOUNT GREENWOOD,MORGAN PARK", "Mount Greenwood", "75584290.02089999616146087646484375", "48665.1305389999979524873197078704833984375" ]
+, [ 51, "geo_bbvz-uum9-1.51", null, null, null, null, null, null, "MOUNT GREENWOOD,MORGAN PARK", "Morgan Park", "91877340.6987999975681304931640625", "46396.419362000000546686351299285888671875" ]
+, [ 52, "geo_bbvz-uum9-1.52", null, null, null, null, null, null, "OHARE", "O'Hare", "371835607.686999976634979248046875", "173625.98465999998734332621097564697265625" ]
+, [ 53, "geo_bbvz-uum9-1.53", null, null, null, null, null, null, "JACKSON PARK", "Jackson Park", "23545658.77719999849796295166015625", "32779.730779999998048879206180572509765625" ]
+, [ 54, "geo_bbvz-uum9-1.54", null, null, null, null, null, null, "LOOP", "Loop", "31485185.0318000018596649169921875", "52640.907563000000664032995700836181640625" ]
+, [ 13, "geo_bbvz-uum9-1.13", null, null, null, null, null, null, "PULLMAN", "Pullman", "59001555.6019999980926513671875", "35572.069508000000496394932270050048828125" ]
+, [ 14, "geo_bbvz-uum9-1.14", null, null, null, null, null, null, "RIVERDALE", "Riverdale", "98389497.4142999947071075439453125", "46455.4408570000014151446521282196044921875" ]
+, [ 15, "geo_bbvz-uum9-1.15", null, null, null, null, null, null, "SOUTHEAST SIDE", "Hegewisch", "145965741.4370000064373016357421875", "73692.3821319999988190829753875732421875" ]
+, [ 55, "geo_bbvz-uum9-1.55", null, null, null, null, null, null, "GREEKTOWN", "Greektown", "1650645.84189000003971159458160400390625", "6099.310645999999906052835285663604736328125" ]
+, [ 56, "geo_bbvz-uum9-1.56", null, null, null, null, null, null, "MUSEUM CAMPUS", "Museum Campus", "15517071.1631000004708766937255859375", "35127.151983999996446073055267333984375" ]
+, [ 16, "geo_bbvz-uum9-1.16", null, null, null, null, null, null, "BRONZEVILLE", "Douglas", "46004621.137000001966953277587890625", "31027.0536710000014863908290863037109375" ]
+, [ 57, "geo_bbvz-uum9-1.57", null, null, null, null, null, null, "EDGEWATER", "Edgewater", "38865397.67180000245571136474609375", "31012.83415999999851919710636138916015625" ]
+, [ 58, "geo_bbvz-uum9-1.58", null, null, null, null, null, null, "LAKE VIEW", "Lake View", "76561177.25620000064373016357421875", "69715.293130000005476176738739013671875" ]
+, [ 59, "geo_bbvz-uum9-1.59", null, null, null, null, null, null, "LINCOLN PARK", "Lincoln Park", "67401451.37170000374317169189453125", "61856.516472000002977438271045684814453125" ]
+, [ 60, "geo_bbvz-uum9-1.60", null, null, null, null, null, null, "STREETERVILLE", "Magnificent Mile", "882405.0861599999479949474334716796875", "9154.567114999999830615706741809844970703125" ]
+, [ 61, "geo_bbvz-uum9-1.61", null, null, null, null, null, null, "LINCOLN SQUARE", "Lincoln Square", "71352328.23989999294281005859375", "36624.6030850000024656765162944793701171875" ]
+, [ 17, "geo_bbvz-uum9-1.17", null, null, null, null, null, null, "OAKLAND,KENWOOD", "Oakland", "16913961.0408000014722347259521484375", "19565.50615299999844864942133426666259765625" ]
+, [ 71, "geo_bbvz-uum9-1.71", null, null, null, null, null, null, "GRANT PARK", "Grant Park", "8974786.196350000798702239990234375", "13171.698066999999355175532400608062744140625" ]
+, [ 72, "geo_bbvz-uum9-1.72", null, null, null, null, null, null, "WEST LOOP", "West Loop", "52945063.896700002253055572509765625", "43907.6718210000035469420254230499267578125" ]
+, [ 18, "geo_bbvz-uum9-1.18", null, null, null, null, null, null, "BACK OF THE YARDS", "Fuller Park", "19916704.869199998676776885986328125", "25339.089749999999185092747211456298828125" ]
+, [ 76, "geo_bbvz-uum9-1.76", null, null, null, null, null, null, "ANDERSONVILLE", "Andersonville", "9584592.8990599997341632843017578125", "12534.092624999999316059984266757965087890625" ]
+, [ 19, "geo_bbvz-uum9-1.19", null, null, null, null, null, null, "WOODLAWN", "Woodlawn", "40515739.082999996840953826904296875", "28960.0590369999990798532962799072265625" ]
+, [ 20, "geo_bbvz-uum9-1.20", null, null, null, null, null, null, "PORTAGE PARK", "Portage Park", "110196097.138999998569488525390625", "46520.6421380000028875656425952911376953125" ]
+, [ 77, "geo_bbvz-uum9-1.77", null, null, null, null, null, null, "RUSH & DIVISION", "Rush & Division", "3489575.80159999988973140716552734375", "8503.03313300000081653706729412078857421875" ]
+, [ 23, "geo_bbvz-uum9-1.23", null, null, null, null, null, null, "LOGAN SQUARE", "Logan Square", "71256806.55179999768733978271484375", "36361.508518000002368353307247161865234375" ]
+, [ 24, "geo_bbvz-uum9-1.24", null, null, null, null, null, null, "LITTLE ITALY, UIC", "Little Italy, UIC", "71376244.122500002384185791015625", "36568.4642890000031911768019199371337890625" ]
+, [ 25, "geo_bbvz-uum9-1.25", null, null, null, null, null, null, "KENWOOD,OAKLAND", "Kenwood", "29071741.928300000727176666259765625", "23325.16790599999876576475799083709716796875" ]
+, [ 26, "geo_bbvz-uum9-1.26", null, null, null, null, null, null, "ROGERS PARK", "Rogers Park", "51259902.4505999982357025146484375", "34052.397576000003027729690074920654296875" ]
+, [ 27, "geo_bbvz-uum9-1.27", null, null, null, null, null, null, "JEFFERSON PARK", "Jefferson Park", "64868161.681900002062320709228515625", "44011.9571700000014971010386943817138671875" ]
+, [ 28, "geo_bbvz-uum9-1.28", null, null, null, null, null, null, "SAUGANASH,FOREST GLEN", "Sauganash,Forest Glen", "89130893.63639999926090240478515625", "74493.8216039999970234930515289306640625" ]
+, [ 29, "geo_bbvz-uum9-1.29", null, null, null, null, null, null, "NORTH PARK,ALBANY PARK", "North Park", "70288706.434300005435943603515625", "41581.9486539999998058192431926727294921875" ]
+, [ 30, "geo_bbvz-uum9-1.30", null, null, null, null, null, null, "NORTH PARK,ALBANY PARK", "Albany Park", "53542230.818999998271465301513671875", "39339.01643899999908171594142913818359375" ]
+, [ 31, "geo_bbvz-uum9-1.31", null, null, null, null, null, null, "IRVING PARK,AVONDALE", "Irving Park", "89611382.31059999763965606689453125", "49083.2240939999974216334521770477294921875" ]
+, [ 32, "geo_bbvz-uum9-1.32", null, null, null, null, null, null, "DUNNING", "Dunning", "103595001.17499999701976776123046875", "54555.9925339999972493387758731842041015625" ]
+, [ 33, "geo_bbvz-uum9-1.33", null, null, null, null, null, null, "WEST RIDGE", "West Ridge", "98429094.86210000514984130859375", "43020.6894580000007408671081066131591796875" ]
+, [ 34, "geo_bbvz-uum9-1.34", null, null, null, null, null, null, "UPTOWN", "Uptown", "65095642.836000002920627593994140625", "46972.79018199999700300395488739013671875" ]
+, [ 35, "geo_bbvz-uum9-1.35", null, null, null, null, null, null, "NORWOOD PARK", "Norwood Park", "121959105.4699999988079071044921875", "80368.374377999993157573044300079345703125" ]
+, [ 36, "geo_bbvz-uum9-1.36", null, null, null, null, null, null, "STREETERVILLE", "Streeterville", "17894338.81509999930858612060546875", "40084.1614709999994374811649322509765625" ]
+, [ 37, "geo_bbvz-uum9-1.37", null, null, null, null, null, null, "SOUTH SHORE, GRAND CROSSING", "South Shore", "81812716.39040000736713409423828125", "44249.6451779999988502822816371917724609375" ]
+, [ 38, "geo_bbvz-uum9-1.38", null, null, null, null, null, null, "CHATHAM,BURNSIDE", "Chatham", "82320670.3111999928951263427734375", "42006.945009000002755783498287200927734375" ]
+, [ 39, "geo_bbvz-uum9-1.39", null, null, null, null, null, null, "SOUTH CHICAGO", "South Chicago", "93272185.0092000067234039306640625", "52435.979430999999749474227428436279296875" ]
+, [ 40, "geo_bbvz-uum9-1.40", null, null, null, null, null, null, "WASHINGTON HEIGHTS,ROSELAND", "Roseland", "134313706.7299999892711639404296875", "56632.7954289999979664571583271026611328125" ]
+, [ 41, "geo_bbvz-uum9-1.41", null, null, null, null, null, null, "NORTH CENTER", "North Center", "57054167.850000001490116119384765625", "31391.66975399999864748679101467132568359375" ]
+, [ 42, "geo_bbvz-uum9-1.42", null, null, null, null, null, null, "SOUTHEAST SIDE", "South Deering", "303797059.660000026226043701171875", "80389.87179999999352730810642242431640625" ]
+, [ 43, "geo_bbvz-uum9-1.43", null, null, null, null, null, null, "SOUTHEAST SIDE", "East Side", "83241728.04930000007152557373046875", "52274.192848999999114312231540679931640625" ]
+, [ 44, "geo_bbvz-uum9-1.44", null, null, null, null, null, null, "WEST PULLMAN", "West Pullman", "99365198.08220000565052032470703125", "50023.843001000001095235347747802734375" ]
+, [ 45, "geo_bbvz-uum9-1.45", null, null, null, null, null, null, "MIDWAY AIRPORT", "Garfield Ridge", "117890778.42900000512599945068359375", "60080.4479700000010780058801174163818359375" ]
+, [ 62, "geo_bbvz-uum9-1.62", null, null, null, null, null, null, "WASHINGTON PARK", "Washington Park", "42373881.484200000762939453125", "28175.316086999999242834746837615966796875" ]
+, [ 63, "geo_bbvz-uum9-1.63", null, null, null, null, null, null, "MILLENIUM PARK", "Millenium Park", "2775228.3792699999175965785980224609375", "7567.385580000000118161551654338836669921875" ]
+, [ 64, "geo_bbvz-uum9-1.64", null, null, null, null, null, null, "NEAR SOUTH SIDE", "Near South Side", "34252582.700300000607967376708984375", "26884.58920399999988148920238018035888671875" ]
+, [ 86, "geo_bbvz-uum9-1.86", null, null, null, null, null, null, "ARMOUR SQUARE,CHINATOWN", "Chinatown", "10624727.46050000004470348358154296875", "14452.76625699999931384809315204620361328125" ]
+, [ 65, "geo_bbvz-uum9-1.65", null, null, null, null, null, null, "MARQUETTE PARK,GAGE PARK", "Chicago Lawn", "98279465.1150999963283538818359375", "40073.0998380000019096769392490386962890625" ]
+, [ 66, "geo_bbvz-uum9-1.66", null, null, null, null, null, null, "AUBURN GRESHAM", "Auburn Gresham", "105065353.6019999980926513671875", "46757.72171600000001490116119384765625" ]
+, [ 67, "geo_bbvz-uum9-1.67", null, null, null, null, null, null, "BEVERLY", "Beverly", "88779363.9384000003337860107421875", "44591.4851009999983943998813629150390625" ]
+, [ 68, "geo_bbvz-uum9-1.68", null, null, null, null, null, null, "WASHINGTON HEIGHTS,ROSELAND", "Washington Heights", "79635752.87690000236034393310546875", "42222.598163000002386979758739471435546875" ]
+, [ 69, "geo_bbvz-uum9-1.69", null, null, null, null, null, null, "EDISON PARK", "Edison Park", "31636313.7864000014960765838623046875", "25937.22684099999969475902616977691650390625" ]
+, [ 70, "geo_bbvz-uum9-1.70", null, null, null, null, null, null, "HYDE PARK", "Hyde Park", "38859161.843699999153614044189453125", "28013.027919000000110827386379241943359375" ]
+, [ 73, "geo_bbvz-uum9-1.73", null, null, null, null, null, null, "BUCKTOWN", "Bucktown", "28800760.141199998557567596435546875", "26109.1076099999991129152476787567138671875" ]
+, [ 74, "geo_bbvz-uum9-1.74", null, null, null, null, null, null, "LOWER WEST SIDE", "Lower West Side", "81550723.8231000006198883056640625", "43229.3688069999989238567650318145751953125" ]
+, [ 75, "geo_bbvz-uum9-1.75", null, null, null, null, null, null, "WRIGLEYVILLE", "Wrigleyville", "7287843.05188000015914440155029296875", "12154.650571000000127241946756839752197265625" ]
+, [ 78, "geo_bbvz-uum9-1.78", null, null, null, null, null, null, "ARCHER HEIGHTS,WEST ELSDON", "Archer Heights", "55922505.721199996769428253173828125", "31880.02102999999988242052495479583740234375" ]
+, [ 79, "geo_bbvz-uum9-1.79", null, null, null, null, null, null, "BRIGHTON PARK,MCKINLEY PARK", "Brighton Park", "75892790.311399996280670166015625", "36537.1343059999999240972101688385009765625" ]
+, [ 80, "geo_bbvz-uum9-1.80", null, null, null, null, null, null, "BRIGHTON PARK,MCKINLEY PARK", "Mckinley Park", "39431799.64790000021457672119140625", "26014.09683700000095996074378490447998046875" ]
+, [ 87, "geo_bbvz-uum9-1.87", null, null, null, null, null, null, "UKRAINIAN VILLAGE AND EAST VILLAGE", "East Village", "7050048.46887999959290027618408203125", "10620.662883999999394291080534458160400390625" ]
+, [ 88, "geo_bbvz-uum9-1.88", null, null, null, null, null, null, "WICKER PARK,WEST TOWN", "West Town", "58507728.421099998056888580322265625", "46673.6205459999982849694788455963134765625" ]
+, [ 81, "geo_bbvz-uum9-1.81", null, null, null, null, null, null, "BRIDGEPORT", "Bridgeport", "58291519.276000000536441802978515625", "32732.71832699999868054874241352081298828125" ]
+, [ 82, "geo_bbvz-uum9-1.82", null, null, null, null, null, null, "ARCHER HEIGHTS,WEST ELSDON", "West Elsdon", "32711091.4259000010788440704345703125", "26229.695600999999442137777805328369140625" ]
+, [ 83, "geo_bbvz-uum9-1.83", null, null, null, null, null, null, "MARQUETTE PARK,GAGE PARK", "Gage Park", "61284896.113200001418590545654296875", "32294.19591099999888683669269084930419921875" ]
+, [ 84, "geo_bbvz-uum9-1.84", null, null, null, null, null, null, "MIDWAY AIRPORT", "Clearing", "71145192.3826999962329864501953125", "45363.286175000001094304025173187255859375" ]
+, [ 85, "geo_bbvz-uum9-1.85", null, null, null, null, null, null, "WEST LAWN", "West Lawn", "82315301.68310000002384185791015625", "41934.4901309999986551702022552490234375" ]
+, [ 89, "geo_bbvz-uum9-1.89", null, null, null, null, null, null, "WICKER PARK,WEST TOWN", "Wicker Park", "26853193.0925999991595745086669921875", "21992.66094599999996717087924480438232421875" ]
+, [ 94, "geo_bbvz-uum9-1.94", null, null, null, null, null, null, "UKRAINIAN VILLAGE AND EAST VILLAGE", "Ukrainian Village", "10622385.57760000042617321014404296875", "13311.469795999999405466951429843902587890625" ]
+, [ 90, "geo_bbvz-uum9-1.90", null, null, null, null, null, null, "MONTCLARE, GALEWOOD", "Galewood", "29257505.7199999988079071044921875", "25124.77045500000167521648108959197998046875" ]
+, [ 91, "geo_bbvz-uum9-1.91", null, null, null, null, null, null, "MONTCLARE, GALEWOOD", "Montclare", "27535347.8586000017821788787841796875", "22829.53362600000036763958632946014404296875" ]
+, [ 95, "geo_bbvz-uum9-1.95", null, null, null, null, null, null, "OLD TOWN", "Old Town", "19847998.9611000008881092071533203125", "17905.72867599999881349503993988037109375" ]
+, [ 92, "geo_bbvz-uum9-1.92", null, null, null, null, null, null, "BELMONT CRAGIN,HERMOSA", "Belmont Cragin", "109099407.2109999954700469970703125", "43311.706885999999940395355224609375" ]
+, [ 93, "geo_bbvz-uum9-1.93", null, null, null, null, null, null, "AUSTIN", "Austin", "170037750.8260000050067901611328125", "55473.345910999996704049408435821533203125" ]
+, [ 96, "geo_bbvz-uum9-1.96", null, null, null, null, null, null, "GOLD COAST", "Gold Coast", "7165705.534669999964535236358642578125", "13685.47937699999965843744575977325439453125" ]
+, [ 97, "geo_bbvz-uum9-1.97", null, null, null, null, null, null, "BOYSTOWN", "Boystown", "3365778.9711500001139938831329345703125", "9780.268985000000611762516200542449951171875" ]
+, [ 98, "geo_bbvz-uum9-1.98", null, null, null, null, null, null, "RIVER NORTH", "River North", "38766442.51940000057220458984375", "31506.0378100000016274861991405487060546875" ]
+ ]
+}

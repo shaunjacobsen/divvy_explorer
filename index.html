@@ -9,74 +9,382 @@
 <script src="js/d3.min.js"></script>
 <script src="js/crossfilter.js"></script>
 <script src="js/dc.js"></script>
+<script src="js/bootstrap.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="style/bootstrap.css">
+<link rel="stylesheet" href="style/bootstrap-theme.css">
+<link rel="stylesheet" href="style/dc.css">
 
 <body>
 
-<div id="chart-line-hitsperday"></div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div id="chart-line-tripsperday"></div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        
+        <div class="col-xs-4 col-centered">
+            <div id="chart-pie-gender"></div>
+        </div>
+
+        <div class="col-xs-4 col-centered">
+            <div id="chart-pie-age"></div>
+        </div>
+
+        <div class="col-xs-4 col-centered">
+            <div id="chart-pie-user"></div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-4">
+            <div id="chart-row-month"></div>
+        </div>
+
+        <div class="col-xs-4">
+            <div id="chart-row-dayofweek"></div>
+        </div>
+
+        <div class="col-xs-4">
+            <div id="chart-bar-time"></div></div>
+        </div>
+
+    </div> 
+
+    
+
+    <div id="chart-bar-duration"></div>
+
+</div>
 
 <script>
 
-'use strict';
+d3.json("data.php", function(data) {
+        
+var parseDate = d3.time.format("%m/%d/%Y").parse;
+var parseMonth = d3.time.format("%m");
+function roundToOne(num) {
+    return +(Math.round(num + "e+1") + "e-1");
+}
 
-var genderChart = dc.pieChart("genderChart");
-var userChart = dc.pieChart("userChart");
-var dayChart = dc.rowChart("dayChart");
-var monthChart = dc.rowChart("monthChart");
-var timeChart = dc.barChart("timeChart");
-var durationChart = dc.barChart("durationChart");
-var distanceChart = dc.barChart("distanceChart");
-var ageChart = dc.barChart("ageChart");
-var tripsChart = dc.lineChart("tripsChart");
+data.forEach(function(d) {
+    d.start_date = parseDate(d.start_date);
+    d.month = parseMonth(d.start_date);
+    d.startTime = d.start_time.substring(0,2); // gets the hour of the trip start time
+    d.duration = Math.floor(d.tripduration / 60); // gets the duration of the trip in minutes, rounded down
+    d.gender = d.gender;
+    // d.km = roundToOne(d.meters * 0.000621371);
+    d.total = 1;
+});
 
-d3.json("data.json", function(data) {
-	var dateFormat = d3.time.format("%m/%d/%Y");
-	var timeFormat = d3.time.format("%I:%M %p");
-    data.forEach(function(d) {
-    	d.trip_id = d.trip_id;
-        d.start_date = dateFormat.parse(d.start_date);
-        d.end_date = dateFormat.parse(d.end_date);
-        d.month = d3.time.month(d.start_date);
-        d.start_time = timeFormat.parse(d.start_time);
-        d.end_time = timeFormat.parse(d.end_time);
-        d.day = d.start_dayofweek;
-        d.duration = d.tripduration;
-        d.usertype = d.usertype;
-        d.gender = d.gender;
-        d.distance = d.meters;
-        d.age = d.age_in_2014;
-        d.total = 1;
-    });
+var ndx = crossfilter(data); 
 
-var ndx = crossfilter(data);
 
-var dateDim = ndx.dimension(function (d) {
+// to debug the data elements, uncomment the line below
+// console.log(data);
+
+// dimension by origin station
+var stationDim = ndx.dimension(function(d) {
+    return d.from_station_name;
+});
+
+// dimension by date
+
+var dateDim = ndx.dimension(function(d) {
     return d.start_date;
 });
 
-var minDate = dateDim.bottom(1)[0].date;
-var maxDate = dateDim.top(1)[0].date;
+// dimension by gender
 
-var rides = dateDim.group().reduceSum(function (d) {
+var genderDim = ndx.dimension(function(d) {
+    if (d.gender === "Male")
+        return "Male";
+    else if (d.gender === "Female")
+        return "Female";
+    else
+        return "Unknown";
+});
+
+// dimension by user type (subscriber or passholder)
+
+var userDim = ndx.dimension(function(d) {
+    // rename user types to subscriber/passholder
+    if (d.usertype === "Subscriber")
+        return "Subscriber";
+    else
+        return "Passholder";
+});
+
+// dimension by kilometres ridden
+
+var kmDim = ndx.dimension(function(d) {
+    return d.km;
+});
+
+// dimension by day of week
+var dayOfWeek = ndx.dimension(function(d) {
+    var day = d.start_date.getDay();
+    var name=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    return day+"."+name[day];
+});
+
+// dimension by month
+var monthDim = ndx.dimension(function(d) {
+    var month = d.month;
+    var name = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    return month + "." + name[month-1];
+});
+
+// dimension by time of day bike was taken from dock
+var timeDim = ndx.dimension(function(d) {
+    return d.startTime;
+});
+
+// dimension by duration of the trip
+var durationDim = ndx.dimension(function(d) {
+    return d.duration;
+});
+
+// dimension by age of rider
+var ageDim = ndx.dimension(function(d) {
+    var age = d.age_in_2014;
+    if (age === 0)
+        return "Unknown";
+    else if (age > 15 && age < 25)
+        return "16-24";
+    else if (age > 24 && age < 35)
+        return "25-34";
+    else if (age > 34 && age < 50)
+        return "35-49";
+    else if (age > 49 && age < 65)
+        return "50-64";
+    else if (age > 65)
+        return "65+";
+});
+
+// group by number of trips originating at each station
+var tripsFromStation = stationDim.group().reduce(
+    function (p, v) {
+        ++p.count;
+        p.latitude += v.from_station_latitude;
+        p.longitude += v.from_station_longitude;
+        return p;
+    },
+    function (p, v) {
+        -p.count;
+        p.latitude -= v.from_station_latitude;
+        p.longitude -= v.from_station_longitude;
+        return p;
+    },
+    function (p, v) {
+        return {count:0, latitude:0, longitude:0};
+    }
+);
+
+// group by number of trips
+var trips = dateDim.group().reduceSum(function(d) {
     return d.total;
 });
 
-var hitslineChart  = dc.lineChart("#chart-line-hitsperday");
+// group by kilometres ridden
+var kmGroup = kmDim.group();
 
-hitslineChart
-    .width(500).height(200)
-    .dimension(dateDim)
-    .group(rides)
-    .x(d3.time.scale().domain([minDate,maxDate]));
+// group by gender
 
-dc.renderAll();
-
+var gender_total = genderDim.group().reduceSum(function(d) {
+    return d.total;
 });
 
+// group by user type
+var user_total = userDim.group().reduceSum(function(d) {
+    return d.total;
+});
+
+// group by day of week
+var dayOfWeekGroup = dayOfWeek.group();
+
+// group by month
+var monthGroup = monthDim.group();
+
+// group by start time
+var startTimeGroup = timeDim.group();
+
+// group by duration
+var durationGroup = durationDim.group();
+
+// group by age
+var ageGroup = ageDim.group();
+
+// establish the minimum and maximum ranges
+
+    // for dates
+
+    var minDate = dateDim.bottom(1)[0].start_date;
+    var maxDate = dateDim.top(1)[0].start_date;
+
+    // for kilometres ridden
+
+    var minKm = kmDim.bottom(1)[0].km;
+    var maxKm = kmDim.top(1)[0].km;
+
+    // for duration (max only, lowest will always be 0)
+
+    var maxDuration = durationDim.top(1)[0].duration;
+
+// create the charts
+
+// var chicagoChart = dc.bubbleOverlay("#chicago"); // overlay of the city
+var tripsChart = dc.lineChart("#chart-line-tripsperday"); // trips line chart
+// var kmChart = dc.barChart("#chart-line-km"); // kilometres ridden line chart
+var genderChart = dc.pieChart("#chart-pie-gender"); // gender pie chart
+var userChart = dc.pieChart("#chart-pie-user"); // user type pie chart
+var dayOfWeekChart = dc.rowChart("#chart-row-dayofweek"); // day of week chart
+var monthChart = dc.rowChart("#chart-row-month"); // month chart
+var timeChart = dc.barChart("#chart-bar-time"); // trip start hour chart
+var durationChart = dc.barChart("#chart-bar-duration"); // duration chart
+var ageChart = dc.pieChart("#chart-pie-age"); // age chart
+
+/* ----- Section under construction
+
+Adding a map of stations, with size/color based on the number of trips taken from that station.
+
+var projection = d3.geo.albersUsa()
+    .scale(10)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+
+var svg = d3.select("#chicago").append("svg")
+    .attr("width", 500)
+    .attr("height", 750);
+
+svg.append("rect")
+    .attr("width", 500)
+    .attr("height", 750)
+
+var g = svg.append("g");
+
+d3.json("neighborhoods.json", function(error, chicago) {
+    g.append("g")
+        .attr("id","neighborhoods")
+    .selectAll("path")
+        .data(topojson.feature(chicago, chicago.objects.sec_neigh).features)
+    .enter().append("path")
+        .attr("d", path);
+
+    g.append("path")
+        .datum(topojson.mesh(chicago, chicago.objects.sec_neigh, function (a, b) { return a !== b; }))
+        .attr("id", "neighborhood-borders")
+        .attr("d", path);
+});
+
+-------- */
+
+tripsChart
+    .width(970).height(300)
+    .dimension(dateDim)
+    .group(trips)
+    .title(function(d) {
+        var value = d.total;
+        return parseDate(d.start_date) + "\n" + value;
+    })
+    .x(d3.time.scale().domain([minDate,maxDate]))
+    .renderArea(true)
+    .renderHorizontalGridLines(true)
+    .yAxisLabel("Trips per day");
+
+genderChart
+    .width(150).height(150)
+    .dimension(genderDim)
+    .group(gender_total)
+    .colors(['#F38630', '#69D2E7', '#E0E4CC'])
+    .innerRadius(20); 
+
+userChart
+    .width(150).height(150)
+    .dimension(userDim)
+    .group(user_total)
+    .innerRadius(20)
+    .colors(['#F38630', '#69D2E7']);
+
+dayOfWeekChart
+    .width(323).height(180)
+    .margins({top: 20, left: 10, right: 10, bottom: 20})
+    .group(dayOfWeekGroup)
+    .dimension(dayOfWeek)
+    .label(function (d) {
+        return d.key.split(".")[1];
+    })
+    .title(function (d) {
+        return d.value;
+    })
+    .elasticX(false)
+    .xAxis().ticks(4);
+
+monthChart
+    .width(323).height(180)
+    .margins({top: 20, left: 10, right: 10, bottom: 20})
+    .group(monthGroup)
+    .dimension(monthDim)
+    .label(function (d) {
+        return d.key.split(".")[1];
+    })
+    .elasticX(false)
+    .xAxis().ticks(4);
+
+timeChart
+    .width(500)
+    .height(180)
+    .margins({top: 10, right: 50, bottom: 30, left: 40})
+    .dimension(timeDim)
+    .group(startTimeGroup)
+    .round(dc.round.floor)
+    .renderHorizontalGridLines(true)
+    .elasticY(false)
+    .x(d3.scale.linear().domain([0, 23]))
+
+    timeChart.xAxis().tickFormat(
+        function (v) { return v + "h"; });
+    timeChart.yAxis().ticks(5);
+
+durationChart
+    .width(500)
+    .height(180)
+    .margins({top: 10, right: 50, bottom: 30, left: 40})
+    .dimension(durationDim)
+    .group(durationGroup)
+    .round(dc.round.floor)
+    .renderHorizontalGridLines(true)
+    .elasticY(false)
+    .x(d3.scale.linear().domain([0, 60]))
+
+    durationChart.xAxis().tickFormat(
+        function (v) { return v + "m"; });
+    durationChart.yAxis().ticks(5);
+
+ageChart
+    .width(150).height(150)
+    .dimension(ageDim)
+    .group(ageGroup)
+    .innerRadius(20); 
+
+
+// render all the charts
+
+dc.renderAll(); 
+
+});
 
 </script>
 
