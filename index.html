@@ -3,7 +3,7 @@
 <head>
     <title>Divvy Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shows the origin-destination pair, by neighborhood, of every Divvy bike share trip taken in Chicago."
+    <meta name="description" content="Crossfilter analysis of Chicago Divvy bike share ride data that can be analyzed by time, day, month, gender, age, rider type, and duration."
     <meta charset="utf-8">
 
 <script src="js/d3.min.js"></script>
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="style/custom.css">
 
 <style>
-@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700');
+@import url(http://fonts.googleapis.com/css?family=Ruda:400,700);
 </style>
 
 <body>
@@ -28,7 +28,8 @@
           
             <!-- sidebar -->
             <div class="column col-sm-2" id="sidebar">
-                <a class="logo" href="#">Explorer</a>
+                <a class="logo" href="#">Divvy<br /><strong>Data Explorer</strong></a>
+                <p>by <a href="http://www.transitized.com/">transitized</a> <img src="style/image/logo.svg" height="18px" style="margin-bottom:9px;" /></p>
                 <p>
                     The Divvy Data Explorer takes all trip data and uses <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> to enable fast exploration of the data and several variables. <strong>Every trip</strong> is displayed and can be filtered.
                 </p>
@@ -41,17 +42,10 @@
                 <p>
                     <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();"><button type="button" class="btn btn-danger">Reset graphs</button></a>
                 </p>
-                <p><strong>Need some inspiration?</strong><br />
-                    Try these filters:
-
-                    <ul class="list-unstyled" style="margin-left:15px;">
-                        <li>Test</li>
-                    </ul>
-                </p>
                 <ul class="nav hidden-xs" id="sidebar-footer">
                     <li>
                       <p><small>
-                            Trip data from <a href="#">Divvy</a>. Data charted using <a href="#">dc.js</a>. Template from <a href="http://bootstrapzero.com/bootstrap-template/basis">Bootstrap Zero</a>.</small>
+                            Trip data from <a href="http://divvybikes.com" target="_blank">Divvy</a>. Data charted using <a href="http://nickqizhu.github.io/dc.js/" target="_blank">dc.js</a>. Template from <a href="http://bootstrapzero.com/bootstrap-template/basis" target="_blank">Bootstrap Zero</a>.</small>
                         </p>
                     </li>
                 </ul>
@@ -146,7 +140,7 @@
 
                         <div class="row">
                             <div class="col-sm-6 text-center">
-                                <h5>hour bike taken <small>click and drag to select range</small></h5>
+                                <h5>time trip started <small>click and drag to select range (24 hour clock)</small></h5>
                             </div>
                             <div class="col-sm-6 text-center">
                                 <h5>duration of trip <small>click and drag to select range</small></h5>
@@ -194,13 +188,13 @@
                       
                         <div class="row">
                           <div class="col-sm-4">
-                            <a href="#"><img src="style/image/spokes.png" height="50px" /><h4 style="display:inline;">Divvy Spokes</a> <p class="text-muted"><h5><small>Shows the neighborhoods Divvy trips start and end from.</small></h5></p></h4>
+                            <a href="http://transitized.com/divvyspokes/"><img src="style/image/spokes.png" height="50px" /><h4 style="display:inline;">Divvy Spokes</a> <p class="text-muted"><h5><small>Shows the neighborhoods Divvy trips start and end from.</small></h5></p></h4>
                           </div>
                           <div class="col-sm-4">
-                            <a href="#"><h4 style="display:inline;">Commute Mode Map</a> <p class="text-muted"><h5><small>How Chicagoans commute, down to the Census tract level.</small></h5></p></h4>
+                            <a href="http://www.transitized.com/commute"><img src="style/image/commute.png" height="50px" /><h4 style="display:inline;">Commute Mode Map</a> <p class="text-muted"><h5><small>How Chicagoans commute, down to the Census tract level.</small></h5></p></h4>
                           </div>
                           <div class="col-sm-4">
-                            <a href="#"><h4 style="display:inline;">Chicago Building Age Map</a> <p class="text-muted"><h5><small>Shows the construction year of buildings in the city of Chicago.</small></h5></p></h4>
+                            <a href="http://buildings.transitized.com"><img src="style/image/star.png" height="50px" /><h4 style="display:inline;">Chicago Building Age Map</a> <p class="text-muted"><h5><small>Shows the construction year of buildings in the city of Chicago.</small></h5></p></h4>
                           </div>
                         </div>
                         <br />
@@ -256,18 +250,18 @@ var stationDim = ndx.dimension(function(d) {
 
 var dateDim = ndx.dimension(function(d) {
     return d.start_date;
-    return d.km;
+    //return d.km;
 });
 
 // dimension by gender
 
 var genderDim = ndx.dimension(function(d) {
     if (d.gender === "Male")
-        return "Male";
+        return "M";
     else if (d.gender === "Female")
-        return "Female";
+        return "F";
     else
-        return "Unknown";
+        return "?";
 });
 
 // dimension by user type (subscriber or passholder)
@@ -275,7 +269,7 @@ var genderDim = ndx.dimension(function(d) {
 var userDim = ndx.dimension(function(d) {
     // rename user types to subscriber/passholder
     if (d.usertype === "Subscriber")
-        return "Subscriber";
+        return "Member";
     else
         return "Passholder";
 });
@@ -314,7 +308,7 @@ var durationDim = ndx.dimension(function(d) {
 var ageDim = ndx.dimension(function(d) {
     var age = d.age_in_2014;
     if (age === 0)
-        return "Unknown";
+        return "?";
     else if (age > 15 && age < 25)
         return "16-24";
     else if (age > 24 && age < 35)
@@ -492,24 +486,33 @@ tripsSumChart
     .yAxis().ticks(0);
 
 genderChart
-    .width(150).height(150)
+    .width(150).height(220)
     .dimension(genderDim)
     .group(gender_total)
-    .colors(['#F38630', '#69D2E7', '#E0E4CC'])
-    .innerRadius(20);
+    .colors(['#999999', '#FF0000', '#B3DDF2'])
+    .innerRadius(35);
+
+ageChart
+    .width(150).height(220)
+    .dimension(ageDim)
+    .group(ageGroup)
+    .colors(['#0776a0','#ff2c00','#ffb600','#ff8500','#024c68','#999999'])
+    .innerRadius(0); 
 
 userChart
-    .width(150).height(150)
+    .width(150).height(220)
     .dimension(userDim)
     .group(user_total)
-    .innerRadius(20)
-    .colors(['#F38630', '#69D2E7']);
+    .innerRadius(0)
+    .colors(['#B3DDF2', '#FF0000']);
 
 dayOfWeekChart
-    .width(250).height(180)
+    .width(250).height(220)
     .margins({top: 20, left: 10, right: 10, bottom: 20})
     .group(dayOfWeekGroup)
     .dimension(dayOfWeek)
+    .colors(d3.scale.category10())
+    .title(function(d){return d.value;})
     .label(function (d) {
         return d.key.split(".")[1];
     })
@@ -520,14 +523,16 @@ dayOfWeekChart
     .xAxis().ticks(4);
 
 monthChart
-    .width(250).height(180)
+    .width(250).height(220)
     .margins({top: 20, left: 10, right: 10, bottom: 20})
     .group(monthGroup)
     .dimension(monthDim)
+    .title(function(d){return d.value;})
     .label(function (d) {
         return d.key.split(".")[1];
     })
     .elasticX(isElasticOn)
+    .colors(["#00A1E5", "#0042E1", "#1800DD", "#7000D9","#C500D5","#D2008C","#CE0035","#CA1D00","#C66D00","#C2BA00","#78BF00"])
     .xAxis().ticks(4);
 
 timeChart
@@ -559,12 +564,6 @@ durationChart
     durationChart.xAxis().tickFormat(
         function (v) { return v + "m"; });
     durationChart.yAxis().ticks(5);
-
-ageChart
-    .width(150).height(150)
-    .dimension(ageDim)
-    .group(ageGroup)
-    .innerRadius(20); 
 
 // data count
 
