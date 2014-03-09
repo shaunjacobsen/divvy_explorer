@@ -300,7 +300,9 @@ d3.json("neighborhoods.json", function(error, chicago) {
 
 -------- */
 
-var isElasticOn = false;
+// setting isElasticOn to 'true' rescales the axis to fit all of the data.
+
+var isElasticOn = true;
 
 tripsChart
     .renderArea(true)
@@ -388,7 +390,7 @@ timeChart
     .x(d3.scale.linear().domain([0, 23]))
 
     timeChart.xAxis().tickFormat(
-        function (v) { return v + "h"; });
+        function (v) { return v + ":00"; });
     timeChart.yAxis().ticks(5);
 
 durationChart
