@@ -102,6 +102,7 @@ svg {
 
 #sidebar-footer {
   position:absolute;bottom:5px;
+  font-size: 10px;
 }
 #footer {
   margin-bottom:0px;
@@ -123,7 +124,17 @@ svg {
   }
 }
 
+.dc-table-label {
+  display: none;
+}
 
+.dc-data-table {
+  font-size: 11px;
+}
+
+.dc-data-table th {
+  font-size: 14px !important;
+}
 
 
 /* bootstrap overrides */

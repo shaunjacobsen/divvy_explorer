@@ -13,7 +13,6 @@
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="style/bootstrap.css">
-<link rel="stylesheet" href="style/bootstrap-theme.css">
 <link rel="stylesheet" href="style/dc.css">
 <link rel="stylesheet" href="style/custom.css">
 
@@ -31,7 +30,23 @@
             <div class="column col-sm-2" id="sidebar">
                 <a class="logo" href="#">Explorer</a>
                 <p>
-                    The Divvy Data Explorer takes all trip data
+                    The Divvy Data Explorer takes all trip data and uses <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> to enable fast exploration of the data and several variables. <strong>Every trip</strong> is displayed and can be filtered.
+                </p>
+                <p>
+                    At this time, data through December 31, 2013 is available.
+                </p>
+                <p>
+                    Right now, <span id="data-count"><span class="filter-count"></span> trips out of <span class="total-count"></span> total are displaying.</span>
+                </p>
+                <p>
+                    <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();"><button type="button" class="btn btn-danger">Reset graphs</button></a>
+                </p>
+                <p><strong>Need some inspiration?</strong><br />
+                    Try these filters:
+
+                    <ul class="list-unstyled" style="margin-left:15px;">
+                        <li>Test</li>
+                    </ul>
                 </p>
                 <ul class="nav hidden-xs" id="sidebar-footer">
                     <li>
@@ -80,23 +95,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <div id="chart-row-month"></div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div id="chart-row-dayofweek"></div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div id="chart-pie-gender"></div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div id="chart-pie-age"></div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div id="chart-pie-user"></div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-3 text-center">
                                 month
                             </div>
@@ -111,6 +109,24 @@
                             </div>
                             <div class="col-sm-2 text-center">
                                 rider type
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div id="chart-row-month"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div id="chart-row-dayofweek"></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div id="chart-pie-gender"></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div id="chart-pie-age"></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div id="chart-pie-user"></div>
                             </div>
                         </div>
 
@@ -141,16 +157,31 @@
 
                         <div class="col-sm-12">
                           <div class="page-header text-muted divider">
-                            Trip information
+                            Selected trips
                           </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <div id="data-count">
-                                <span class="filter-count"></span> trips showing out of <span class="total-count"></span> trips.
-                                </div>
+                                <p><small>Only the first 10 selected trips will display for streamlined processing.</small></p>
                             </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="data-table">
+                                <table class="table table-condensed dc-data-table">
+                                <thead>
+                                    <th>Trip ID</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Duration</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    </thead>
+                                </table>
+                            </div>
+                          </div>
                         </div>
                         
                     <!-- Section with more information -->
@@ -195,26 +226,26 @@ function roundToOne(num) {
 }
 
 data.forEach(function(d) {
+    d.pStartDate = d.start_date; // start date in M/D/Y format for the data table
     d.start_date = parseDate(d.start_date);
     d.month = parseMonth(d.start_date);
     d.startTime = d.start_time.substring(0,2); // gets the hour of the trip start time
     d.duration = Math.floor(d.tripduration / 60); // gets the duration of the trip in minutes, rounded down
     d.gender = d.gender;
-    // d.km = roundToOne(d.meters * 0.000621371);
+    //d.km = roundToOne(d.meters * 0.000621371);
     d.total = 1;
+    //d.trip_id = d.trip_id;
+    //d.from_station_name = d.from_station_name;
+    //d.to_station_name = d.to_station_name;
 });
 
 var ndx = crossfilter(data);
 
 var all = ndx.groupAll();
 
-dc.dataCount("#data-count")
-        .dimension(ndx)
-        .group(all);
-
 
 // to debug the data elements, uncomment the line below
-// console.log(data);
+console.log(data);
 
 // dimension by origin station
 var stationDim = ndx.dimension(function(d) {
@@ -225,6 +256,7 @@ var stationDim = ndx.dimension(function(d) {
 
 var dateDim = ndx.dimension(function(d) {
     return d.start_date;
+    return d.km;
 });
 
 // dimension by gender
@@ -319,8 +351,12 @@ var trips = dateDim.group().reduceSum(function(d) {
     return d.total;
 });
 
-// group by kilometres ridden
-var kmGroup = kmDim.group();
+/* group by kilometres ridden
+var kmGroup = dateDim.group().reduceSum(function(d) {
+    return d.km;
+});
+
+Kilometres/miles ridden is currently turned off because of graph display issues */
 
 // group by gender
 
@@ -426,7 +462,7 @@ tripsChart
     .transitionDuration(1000)
     .margins({top: 30, right: 50, bottom: 25, left: 40})
     .dimension(dateDim)
-    .mouseZoomable(true)
+    .mouseZoomable(false)
     .rangeChart(tripsSumChart)
     .x(d3.time.scale().domain([minDate,maxDate]))
     .round(d3.time.month.round)
@@ -434,14 +470,14 @@ tripsChart
     .elasticY(true)
     .renderHorizontalGridLines(true)
     .brushOn(false)
-    .group(trips)
+    .group(trips, "Trips taken")
     .valueAccessor(function(d) {
             return d.value;
         })
-    .stack(kmGroup, "km", function(d) {
-        return d.value;
-    })
-    .yAxisLabel("Trips per day");
+    //.stack(kmGroup, "Miles ridden", function(d) {
+    //    return d.value;
+    //})
+    .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5));
 
 tripsSumChart
     .width(970).height(50)
@@ -529,6 +565,45 @@ ageChart
     .dimension(ageDim)
     .group(ageGroup)
     .innerRadius(20); 
+
+// data count
+
+dc.dataCount("#data-count")
+        .dimension(ndx)
+        .group(all);
+
+// data table
+
+dc.dataTable(".dc-data-table")
+        .dimension(dateDim)
+        .group(function(d) {
+            return d.total;
+        })
+        .size(10)
+        .columns([
+            function(d) {
+                return d.trip_id;
+            },
+            function(d) {
+                return d.pStartDate;
+            },
+            function(d) {
+                return d.start_time;
+            },
+            function(d) {
+                return d.duration + " min";
+            },
+            function(d) {
+                return d.from_station_name;
+            },
+            function(d) {
+                return d.to_station_name;
+            }
+            ])
+        .order(d3.ascending)
+        .renderlet(function(table) {
+            table.selectAll(".dc-table-group").classed("info", true)
+        });
 
 
 // render all the charts
