@@ -147,7 +147,7 @@
                             </div>
                         </div>
 
-                    <!-- Data table -->
+                    <!-- Data table >
 
                         <div class="col-sm-12">
                           <div class="page-header text-muted divider">
@@ -177,6 +177,8 @@
                             </div>
                           </div>
                         </div>
+
+                    -->
                         
                     <!-- Section with more information -->
                       
@@ -211,7 +213,7 @@
 
 <script>
 
-d3.json("data.php", function(data) {
+d3.json("data2.json", function(data) {
         
 var parseDate = d3.time.format("%m/%d/%Y").parse;
 var parseMonth = d3.time.format("%m");
@@ -224,8 +226,7 @@ data.forEach(function(d) {
     d.start_date = parseDate(d.start_date);
     d.month = parseMonth(d.start_date);
     d.startTime = d.start_time.substring(0,2); // gets the hour of the trip start time
-    d.duration = Math.floor(d.tripduration / 60); // gets the duration of the trip in minutes, rounded down
-    d.gender = d.gender;
+    d.duration = Math.floor(d.dur / 60); // gets the duration of the trip in minutes, rounded down
     //d.km = roundToOne(d.meters * 0.000621371);
     d.total = 1;
     //d.trip_id = d.trip_id;
@@ -239,12 +240,14 @@ var all = ndx.groupAll();
 
 
 // to debug the data elements, uncomment the line below
-console.log(data);
+// console.log(data);
 
-// dimension by origin station
+/* dimension by origin station
 var stationDim = ndx.dimension(function(d) {
     return d.from_station_name;
 });
+
+*/
 
 // dimension by date
 
@@ -256,9 +259,9 @@ var dateDim = ndx.dimension(function(d) {
 // dimension by gender
 
 var genderDim = ndx.dimension(function(d) {
-    if (d.gender === "Male")
+    if (d.g === "Male")
         return "M";
-    else if (d.gender === "Female")
+    else if (d.g === "Female")
         return "F";
     else
         return "?";
@@ -268,17 +271,19 @@ var genderDim = ndx.dimension(function(d) {
 
 var userDim = ndx.dimension(function(d) {
     // rename user types to subscriber/passholder
-    if (d.usertype === "Subscriber")
+    if (d.u === "Subscriber")
         return "Member";
     else
         return "Passholder";
 });
 
-// dimension by kilometres ridden
+/* dimension by kilometres ridden
 
 var kmDim = ndx.dimension(function(d) {
     return d.km;
 });
+
+*/
 
 // dimension by day of week
 var dayOfWeek = ndx.dimension(function(d) {
@@ -306,7 +311,7 @@ var durationDim = ndx.dimension(function(d) {
 
 // dimension by age of rider
 var ageDim = ndx.dimension(function(d) {
-    var age = d.age_in_2014;
+    var age = d.age;
     if (age === 0)
         return "?";
     else if (age > 15 && age < 25)
@@ -321,7 +326,7 @@ var ageDim = ndx.dimension(function(d) {
         return "65+";
 });
 
-// group by number of trips originating at each station
+/* group by number of trips originating at each station
 var tripsFromStation = stationDim.group().reduce(
     function (p, v) {
         ++p.count;
@@ -339,6 +344,8 @@ var tripsFromStation = stationDim.group().reduce(
         return {count:0, latitude:0, longitude:0};
     }
 );
+
+*/
 
 // group by number of trips
 var trips = dateDim.group().reduceSum(function(d) {
@@ -387,8 +394,8 @@ var ageGroup = ageDim.group();
 
     // for kilometres ridden
 
-    var minKm = kmDim.bottom(1)[0].km;
-    var maxKm = kmDim.top(1)[0].km;
+    //var minKm = kmDim.bottom(1)[0].km;
+    //var maxKm = kmDim.top(1)[0].km;
 
     // for duration (max only, lowest will always be 0)
 
@@ -571,7 +578,7 @@ dc.dataCount("#data-count")
         .dimension(ndx)
         .group(all);
 
-// data table
+/* data table
 
 dc.dataTable(".dc-data-table")
         .dimension(dateDim)
@@ -603,6 +610,8 @@ dc.dataTable(".dc-data-table")
         .renderlet(function(table) {
             table.selectAll(".dc-table-group").classed("info", true)
         });
+
+*/
 
 
 // render all the charts

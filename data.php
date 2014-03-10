@@ -8,10 +8,9 @@
     $connection = mysql_select_db($database, $server);
 
     $myquery = "
-        SELECT trip_id,start_date,DATE_FORMAT(start_date,'%c/%d/%X') AS start_date,DATE_FORMAT(end_date,'%c/%d/%X') AS end_date,start_time,end_time,start_dayofweek,tripduration,usertype,gender,meters,age_in_2014,from_station_name,from_station_latitude,from_station_longitude,to_station_name
-        FROM `trips`
-        WHERE trip_id mod 75 = 0
-        LIMIT 0,1000000
+        SELECT DATE_FORMAT(start_date,'%c/%d/%X') AS start_date,start_time AS start_time,usertype AS u,gender AS g,tripduration AS dur,meters AS m,age_in_2014 AS age
+        FROM trips
+        LIMIT 0,100000
     ";
     $query = mysql_query($myquery);
     
