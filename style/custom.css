@@ -9,6 +9,13 @@ a {
   color:#222222;
 }
 
+#cover {
+    background: url("image/ajax-loader.gif") no-repeat scroll center center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 svg {
   margin-left: 0 auto;
   margin-right: 0 auto;

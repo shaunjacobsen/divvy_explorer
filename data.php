@@ -10,7 +10,8 @@
     $myquery = "
         SELECT DATE_FORMAT(start_date,'%c/%d/%X') AS start_date,start_time AS start_time,usertype AS u,gender AS g,tripduration AS dur,meters AS m,age_in_2014 AS age
         FROM trips
-        LIMIT 0,100000
+        WHERE meters MOD 36 = 1
+        LIMIT 0,1000
     ";
     $query = mysql_query($myquery);
     

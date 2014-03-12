@@ -22,6 +22,8 @@
 
 <body>
 
+<div id="cover"></div>
+
 <div class="wrapper">
     <div class="box">
         <div class="row">
@@ -31,7 +33,7 @@
                 <a class="logo" href="#">Divvy<br /><strong>Data Explorer</strong></a>
                 <p>by <a href="http://www.transitized.com/">transitized</a> <img src="style/image/logo.svg" height="18px" style="margin-bottom:9px;" /></p>
                 <p>
-                    The Divvy Data Explorer takes all trip data and uses <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> to enable fast exploration of the data and several variables. <strong>Every trip</strong> is displayed and can be filtered.
+                    The Divvy Data Explorer takes all trip data and uses <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> to enable fast exploration of the data and several variables. <strong>Every trip</strong> is displayed and can be filtered. It may take a few moments to load and display the data.
                 </p>
                 <p>
                     At this time, data through December 31, 2013 is available.
@@ -84,7 +86,7 @@
 
                         <div class="col-sm-12">
                           <div class="page-header text-muted divider">
-                            Trip characteristics <span class="text-right"><small>age &amp; gender available only for annual subscribers</small></span>
+                            Trip characteristics <span class="text-right"><small>* age &amp; gender available only for annual members</small></span>
                           </div>
                         </div>
 
@@ -264,7 +266,7 @@ var genderDim = ndx.dimension(function(d) {
     else if (d.g === "Female")
         return "F";
     else
-        return "?";
+        return "Unknown*";
 });
 
 // dimension by user type (subscriber or passholder)
@@ -313,7 +315,7 @@ var durationDim = ndx.dimension(function(d) {
 var ageDim = ndx.dimension(function(d) {
     var age = d.age;
     if (age === 0)
-        return "?";
+        return "Unknown*";
     else if (age > 15 && age < 25)
         return "16-24";
     else if (age > 24 && age < 35)
@@ -497,7 +499,7 @@ genderChart
     .dimension(genderDim)
     .group(gender_total)
     .colors(['#999999', '#FF0000', '#B3DDF2'])
-    .innerRadius(35);
+    .innerRadius(0);
 
 ageChart
     .width(150).height(220)
