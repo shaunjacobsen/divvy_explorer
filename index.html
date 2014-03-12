@@ -68,7 +68,7 @@
                               <h3>Trips taken by day</h3>
                           </div>
                           <div class="col-sm-10">
-                            <div id="chart-line-tripsperday"></div>
+                            <div id="chart-line-tripsperday"><h3 style="text-align:center;color:#00B2EE;">Loading</h3><p style="text-align:center;"><img src="style/image/loading.gif" align="middle" /></p><p style="text-align:center;">May take up to 30 seconds to load</p</div>
                           </div>
                           </div>
                           <div class="row">
@@ -481,6 +481,8 @@ tripsChart
     //    return d.value;
     //})
     .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5));
+    
+ $("#chart-line-tripsperday").html("");
 
 tripsSumChart
     .width(970).height(50)
@@ -498,14 +500,14 @@ genderChart
     .width(150).height(220)
     .dimension(genderDim)
     .group(gender_total)
-    .colors(['#999999', '#FF0000', '#B3DDF2'])
+    .colors(['#FF0000','#AC86F8', '#B3DDF2'])
     .innerRadius(0);
 
 ageChart
     .width(150).height(220)
     .dimension(ageDim)
     .group(ageGroup)
-    .colors(['#0776a0','#ff2c00','#ffb600','#ff8500','#024c68','#999999'])
+    .colors(['#0776a0','#ff2c00','#ffb600','#ff8500','#024c68','#AC86F8'])
     .innerRadius(0); 
 
 userChart
@@ -621,6 +623,17 @@ dc.dataTable(".dc-data-table")
 dc.renderAll(); 
 
 });
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36646540-1', 'transitized.com');
+  ga('send', 'pageview');
 
 </script>
 
