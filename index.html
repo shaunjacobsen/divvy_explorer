@@ -215,7 +215,7 @@
 
 <script>
 
-d3.json("data2.json", function(data) {
+d3.json("data3.json", function(data) {
         
 var parseDate = d3.time.format("%m/%d/%Y").parse;
 var parseMonth = d3.time.format("%m");
@@ -224,13 +224,12 @@ function roundToOne(num) {
 }
 
 data.forEach(function(d) {
-    d.pStartDate = d.start_date; // start date in M/D/Y format for the data table
     d.start_date = parseDate(d.start_date);
     d.month = parseMonth(d.start_date);
-    d.startTime = d.start_time.substring(0,2); // gets the hour of the trip start time
-    d.duration = Math.floor(d.dur / 60); // gets the duration of the trip in minutes, rounded down
+    d.startTime = d.st; // gets the hour of the trip start time
+    d.duration = d.du; // gets the duration of the trip in minutes, rounded down
     //d.km = roundToOne(d.meters * 0.000621371);
-    d.total = 1;
+    d.total = d.c;
     //d.trip_id = d.trip_id;
     //d.from_station_name = d.from_station_name;
     //d.to_station_name = d.to_station_name;
@@ -303,7 +302,7 @@ var monthDim = ndx.dimension(function(d) {
 
 // dimension by time of day bike was taken from dock
 var timeDim = ndx.dimension(function(d) {
-    return d.startTime;
+    return d.st;
 });
 
 // dimension by duration of the trip
@@ -316,16 +315,8 @@ var ageDim = ndx.dimension(function(d) {
     var age = d.age;
     if (age === 0)
         return "Unknown*";
-    else if (age > 15 && age < 25)
-        return "16-24";
-    else if (age > 24 && age < 35)
-        return "25-34";
-    else if (age > 34 && age < 50)
-        return "35-49";
-    else if (age > 49 && age < 65)
-        return "50-64";
-    else if (age > 65)
-        return "65+";
+    else if (age !== 0)
+        return age;
 });
 
 /* group by number of trips originating at each station
@@ -373,19 +364,29 @@ var user_total = userDim.group().reduceSum(function(d) {
 });
 
 // group by day of week
-var dayOfWeekGroup = dayOfWeek.group();
+var dayOfWeekGroup = dayOfWeek.group().reduceSum(function(d) {
+    return d.total;
+});
 
 // group by month
-var monthGroup = monthDim.group();
+var monthGroup = monthDim.group().reduceSum(function(d) {
+    return d.total;
+});
 
 // group by start time
-var startTimeGroup = timeDim.group();
+var startTimeGroup = timeDim.group().reduceSum(function(d) {
+    return d.total;
+});
 
 // group by duration
-var durationGroup = durationDim.group();
+var durationGroup = durationDim.group().reduceSum(function(d) {
+    return d.total;
+});
 
 // group by age
-var ageGroup = ageDim.group();
+var ageGroup = ageDim.group().reduceSum(function(d) {
+    return d.total;
+});
 
 // establish the minimum and maximum ranges
 
@@ -550,36 +551,32 @@ timeChart
     .width(560)
     .height(180)
     .margins({top: 10, right: 50, bottom: 30, left: 40})
+    .centerBar(false)
     .dimension(timeDim)
     .group(startTimeGroup)
-    .round(dc.round.floor)
     .renderHorizontalGridLines(true)
     .elasticY(isElasticOn)
-    .x(d3.scale.linear().domain([0, 23]))
-
-    timeChart.xAxis().tickFormat(
+    .x(d3.scale.linear().domain([0, 24]))
+    .xAxis().tickFormat(
         function (v) { return v + ":00"; });
-    timeChart.yAxis().ticks(5);
 
 durationChart
-    .width(500)
+    .width(560)
     .height(180)
     .margins({top: 10, right: 50, bottom: 30, left: 40})
+    .gap(2)
     .dimension(durationDim)
     .group(durationGroup)
-    .round(dc.round.floor)
     .renderHorizontalGridLines(true)
     .elasticY(isElasticOn)
-    .x(d3.scale.linear().domain([0, 60]))
-
-    durationChart.xAxis().tickFormat(
-        function (v) { return v + "m"; });
-    durationChart.yAxis().ticks(5);
+    .centerBar(true)
+    .x(d3.scale.ordinal().domain(["","0-5","6-10","11-15","16-20","21-25","26-30","31-35","36-40","41-45","46-50","51-55","56-60","60+"]))
+    .xUnits(dc.units.ordinal);
 
 // data count
 
 dc.dataCount("#data-count")
-        .dimension(ndx)
+        .dimension(dateDim)
         .group(all);
 
 /* data table
