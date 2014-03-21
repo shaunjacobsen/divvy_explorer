@@ -47,7 +47,7 @@
                 <ul class="nav hidden-xs" id="sidebar-footer">
                     <li>
                       <p><small>
-                            Trip data from <a href="http://divvybikes.com" target="_blank">Divvy</a>. Data charted using <a href="http://nickqizhu.github.io/dc.js/" target="_blank">dc.js</a>. Template from <a href="http://bootstrapzero.com/bootstrap-template/basis" target="_blank">Bootstrap Zero</a>.</small>
+                            Trip data from <a href="http://divvybikes.com" target="_blank">Divvy</a>. Weather data from National Climatic Data Center. Data charted using <a href="http://nickqizhu.github.io/dc.js/" target="_blank">dc.js</a>. Template from <a href="http://bootstrapzero.com/bootstrap-template/basis" target="_blank">Bootstrap Zero</a>.</small>
                         </p>
                     </li>
                 </ul>
@@ -149,6 +149,20 @@
                             </div>
                         </div>
 
+                        <div class="row divider"><div class="col-sm-12"><hr></div></div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center col-sm-offset-3">
+                                <div id="chart-bar-temp"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <h5>daily mean temperature <small>in degrees fahrenheit</small></h5>
+                            </div>
+                        </div>
+
                     <!-- Data table >
 
                         <div class="col-sm-12">
@@ -233,6 +247,7 @@ data.forEach(function(d) {
     //d.trip_id = d.trip_id;
     //d.from_station_name = d.from_station_name;
     //d.to_station_name = d.to_station_name;
+    d.temp = d.dt;
 });
 
 var ndx = crossfilter(data);
@@ -319,6 +334,11 @@ var ageDim = ndx.dimension(function(d) {
         return age;
 });
 
+// dimension by temperature
+var tempDim = ndx.dimension(function(d) {
+    return d.temp;
+});
+
 /* group by number of trips originating at each station
 var tripsFromStation = stationDim.group().reduce(
     function (p, v) {
@@ -388,6 +408,9 @@ var ageGroup = ageDim.group().reduceSum(function(d) {
     return d.total;
 });
 
+// group by temperature
+var tempGroup = tempDim.group();
+
 // establish the minimum and maximum ranges
 
     // for dates
@@ -404,6 +427,11 @@ var ageGroup = ageDim.group().reduceSum(function(d) {
 
     var maxDuration = durationDim.top(1)[0].duration;
 
+    // for temperature
+
+    var minTemp = tempDim.bottom(1)[0].dt;
+    var maxTemp = tempDim.top(1)[0].dt;
+
 // create the charts
 
 // var chicagoChart = dc.bubbleOverlay("#chicago"); // overlay of the city
@@ -417,6 +445,7 @@ var monthChart = dc.rowChart("#chart-row-month"); // month chart
 var timeChart = dc.barChart("#chart-bar-time"); // trip start hour chart
 var durationChart = dc.barChart("#chart-bar-duration"); // duration chart
 var ageChart = dc.pieChart("#chart-pie-age"); // age chart
+var tempChart = dc.barChart("#chart-bar-temp"); // temperature chart
 
 /* ----- Section under construction
 
@@ -468,7 +497,7 @@ tripsChart
     .dimension(dateDim)
     .mouseZoomable(false)
     .rangeChart(tripsSumChart)
-    .x(d3.time.scale().domain([minDate,maxDate]))
+    .x(d3.time.scale(d3.time.day,1).domain([minDate,maxDate]))
     .round(d3.time.month.round)
     .xUnits(d3.time.months)
     .elasticY(true)
@@ -571,6 +600,18 @@ durationChart
     .centerBar(true)
     .x(d3.scale.ordinal().domain(["0-5","6-10","11-15","16-20","21-25","26-30","31-35","36-40","41-45","46-50","51-55","56-60","60+"]))
     .xUnits(dc.units.ordinal);
+
+tempChart
+    .width(560)
+    .height(150)
+    .margins({top: 10, right: 50, bottom: 30, left: 60})
+    .gap(1)
+    .dimension(tempDim)
+    .group(tempGroup)
+    .elasticY(isElasticOn)
+    .x(d3.scale.linear().domain([minTemp,maxTemp]))
+    .xAxis().tickFormat(
+        function (v) { return v + "º"; });
 
 // data count
 
