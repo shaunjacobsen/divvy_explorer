@@ -12,8 +12,11 @@
 <script src="js/bootstrap.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="datepicker/js/datepicker.js"></script>
 <link rel="stylesheet" href="style/bootstrap.css">
 <link rel="stylesheet" href="style/dc.css">
+<link rel="stylesheet" href="datepicker/css/base.css">
+<link rel="stylesheet" href="datepicker/css/clean.css">
 <link rel="stylesheet" href="style/custom.css">
 
 <style>
@@ -60,10 +63,22 @@
                     <div class="full col-sm-12">
                       
                     <!-- content -->
+
+                    <div class="row">
+                        <div class="span8">
+                          <div id="date-range">
+                            <div id="date-range-field">
+                              <span></span>
+                              <a href="#">&#9660;</a>
+                            </div>
+                            <div id="datepicker-calendar"></div>
+                          </div>
+                        </div>
+                      </div>
                         
                     <!-- Section with trips taken graphs -->
 
-                        <div class="row"> 
+                        <div class="row">
                         <div class="col-sm-2">
                               <h3>Trips taken by day</h3>
                           </div>
@@ -229,7 +244,48 @@
 
 <script>
 
-d3.json("data.php", function(data) {
+var selectedData = 'data.php?d1=2013-06-27&d2=2013-06-28';
+
+updateData(selectedData);
+
+// date selection
+
+var to = new Date();
+var from = new Date(to.getTime() - 1000 * 60 * 60 * 24 * 14);
+
+$('#datepicker-calendar').DatePicker({
+  inline: true,
+  date: [from, to],
+  calendars: 2,
+  mode: 'range',
+  current: new Date(to.getFullYear(), to.getMonth() - 3, 1),
+  onChange: function(dates,el) {
+    // update the range display
+    $('#date-range-field span').text(
+      dates[0].getDate()+' '+dates[0].getMonthName(true)+', '+
+      dates[0].getFullYear()+' - '+
+      dates[1].getDate()+' '+dates[1].getMonthName(true)+', '+
+      dates[1].getFullYear());
+    month0 = dates[0].getMonth() + 1;
+        if (month0 < 10) { month0 = '0' + month0; }
+    month1 = dates[1].getMonth() + 1;
+        if (month1 < 10) { month1 = '0' + month1; }
+    day0 = dates[0].getDate();
+        if (day0 < 10) { day0 = '0' + day0; }
+    day1 = dates[1].getDate();
+        if (day1 < 10) { day1 = '0' + day1; }
+    var selectedData = 'data.php?d1=' + dates[0].getFullYear() + '-' + month0 + '-' + day0 + '&d2=' + dates[1].getFullYear() + '-' + month1 + '-' + day1;
+    updateData(selectedData);
+    dc.renderAll();
+    dc.redrawAll();
+    console.log(selectedData); // for debugging what is passed to data.php
+  }
+
+});
+
+function updateData(dataURL) {
+
+d3.json(dataURL, function(data) {
         
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var parseMonth = d3.time.format("%m");
@@ -418,6 +474,10 @@ var tempGroup = tempDim.group();
     var minDate = dateDim.bottom(1)[0].start_date;
     var maxDate = dateDim.top(1)[0].start_date;
 
+    if (minDate == maxDate) {
+        minDate = 0;
+    };
+
     // for kilometres ridden
 
     //var minKm = kmDim.bottom(1)[0].km;
@@ -427,10 +487,10 @@ var tempGroup = tempDim.group();
 
     var maxDuration = durationDim.top(1)[0].duration;
 
-    // for temperature
+    // for temperature, with a 2-degree buffer to ensure the graph displays all values within the range
 
-    var minTemp = tempDim.bottom(1)[0].dt;
-    var maxTemp = tempDim.top(1)[0].dt;
+    var minTemp = tempDim.bottom(1)[0].dt - 2;
+    var maxTemp = tempDim.top(1)[0].dt + 2;
 
 // create the charts
 
@@ -654,12 +714,11 @@ dc.dataTable(".dc-data-table")
 
 */
 
+dc.renderAll(); // render all the charts
 
-// render all the charts
+}); // end d3.json
 
-dc.renderAll(); 
-
-});
+} // end updateData() function
 
 </script>
 

@@ -6,9 +6,15 @@
     
     $server = new PDO('mysql:host=localhost;dbname=divvy', $username, $password);
 
+    $con1 = "'$_GET[d1]'";
+    $con2 = "'$_GET[d2]'";
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $date = TIME();
+
     $myquery = "
     SELECT c, st_date AS start_date, u, g, st, du, age, dt FROM preprocessed_trips
-    WHERE st_date > '2013-10-31'
+    WHERE st_date BETWEEN ".$con1." AND ".$con2."
     ";
     $result = $server->query($myquery);
     
@@ -30,7 +36,15 @@
 
     echo stripslashes($jsondata);
 
+    $sqlInsert = "INSERT INTO queries (d1, d2, ip) VALUES (:d1, :d2, :ip)";
+
+    $q = $server->prepare($sqlInsert);
+    $q->execute(array(':d1'=>$con1,
+                      ':d2'=>$con2,
+                      ':ip'=>$ipaddress));
+
     $result->closeCursor();
+
     $server = null;
 
 ?>
