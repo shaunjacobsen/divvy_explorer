@@ -244,7 +244,7 @@
 
 <script>
 
-var selectedData = 'data.php?d1=2013-06-27&d2=2013-06-28';
+var selectedData = 'data.php?d1=2013-06-27&d2=2013-06-29';
 
 updateData(selectedData);
 
@@ -275,10 +275,9 @@ $('#datepicker-calendar').DatePicker({
     day1 = dates[1].getDate();
         if (day1 < 10) { day1 = '0' + day1; }
     var selectedData = 'data.php?d1=' + dates[0].getFullYear() + '-' + month0 + '-' + day0 + '&d2=' + dates[1].getFullYear() + '-' + month1 + '-' + day1;
-    updateData(selectedData);
+    dc.filterAll();
     dc.renderAll();
-    dc.redrawAll();
-    console.log(selectedData); // for debugging what is passed to data.php
+    updateData(selectedData);
   }
 
 });
