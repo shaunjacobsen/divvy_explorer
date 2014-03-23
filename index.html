@@ -231,7 +231,7 @@
 
 d3.json("data.php", function(data) {
         
-var parseDate = d3.time.format("%m/%d/%Y").parse;
+var parseDate = d3.time.format("%Y-%m-%d").parse;
 var parseMonth = d3.time.format("%m");
 function roundToOne(num) {
     return +(Math.round(num + "e+1") + "e-1");
